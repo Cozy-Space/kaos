@@ -19,7 +19,7 @@ export class BackupService {
 
   constructor() {
     this.rootPath = process.cwd();
-    this.backupPath = join(this.rootPath, 'backup');
+    this.backupPath = join(this.rootPath, 'backup_backup');
     this.databasePath = join(this.rootPath, 'database', 'database.sqlite');
     this.ensureBackupDir();
     new CronJob('0 1 0 * * *', this.cleanup).start();

@@ -4,7 +4,7 @@
 
 #persistence
 /media
-/backup
+/database_backup
 /database.sqlite
 /database/*
 

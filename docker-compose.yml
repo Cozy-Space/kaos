@@ -7,7 +7,7 @@ services:
       - 8080:3000
     volumes: 
       - ./media:/usr/src/app/media
-      - ./backup:/usr/src/app/backup
+      - ./backup:/usr/src/app/database_backup
       - ./database:/usr/src/app/database
     # environment:
     #   WEBHOOK_BEARER: 1234

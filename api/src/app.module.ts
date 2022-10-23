@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ContainerModule } from './container/container.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { relative, join } from 'path';
+import { join } from 'path';
 import { ContainerEntity } from './container/container.entity';
 import { LocationModule } from './location/location.module';
 import { LocationEntity } from './location/location.entity';
