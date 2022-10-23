@@ -6,6 +6,9 @@
 /media
 /backup
 /database.sqlite
+/database/*
+
+/static
 
 # Logs
 logs

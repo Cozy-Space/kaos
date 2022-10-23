@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  webserver: 
+    image: kaos
+    ports:
+      - 8080:3000
+    volumes: 
+      - ./media:/usr/src/app/media
+      - ./backup:/usr/src/app/backup
+      - ./database:/usr/src/app/database
+    # environment:
+    #   WEBHOOK_BEARER: 1234
+    #   WEBSOCKET_TOKEN: 2345
