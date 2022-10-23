@@ -10,6 +10,8 @@ import { LocationEntity } from './location/location.entity';
 import { BackupModule } from './backup/backup.module';
 import { ImageModule } from './image/image.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { LoginModule } from './login/login.module';
+import { LoginEntity } from './login/login.entity';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
       database: join(process.cwd(), 'database', 'database.sqlite'),
       logging: true,
       synchronize: true,
-      entities: [ContainerEntity, LocationEntity],
+      entities: [ContainerEntity, LocationEntity, LoginEntity],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'static'),
@@ -27,6 +29,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     LocationModule,
     BackupModule,
     ImageModule,
+    LoginModule,
   ],
   controllers: [AppController],
   providers: [AppService],
