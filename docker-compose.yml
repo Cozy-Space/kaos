@@ -2,7 +2,7 @@ version: '2'
 
 services:
   webserver: 
-    image: kaos
+    image: ghcr.io/cozy-space/kaos:main
     ports:
       - 8080:3000
     volumes: 
