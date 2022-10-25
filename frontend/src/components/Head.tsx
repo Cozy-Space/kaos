@@ -10,15 +10,16 @@ import classNames from "classnames";
 import { useContainerApi } from "../hooks/ApiHook";
 import { useContext, useState } from "react";
 import { ApiContext } from "../App";
+import { useLogin } from "../hooks/LoginHook";
 
 const links = [
   {
     name: "Containers",
-    path: "/containers",
+    path: "/dashboard/containers",
   },
   {
     name: "Locations",
-    path: "/locations",
+    path: "/dashboard/locations",
   },
 ];
 
@@ -28,11 +29,13 @@ export function Head() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
+  const { logout, me } = useLogin();
+
   const handleMove = () => {
     if (moving) {
       setMoving(false);
     } else {
-      navigate("containers");
+      navigate("dashboard/containers");
       setMoving(true);
     }
   };
@@ -59,11 +62,12 @@ export function Head() {
       ))}
       <div className={"ml-auto flex gap-1"}>
         <button
+          onClick={logout}
           className={
             "h-8 px-4 gap-2 text-white text-sm mb-1 flex items-center justify-center bg-red-500 rounded-full"
           }
         >
-          Logout
+          {me?.name || "Logout"}
           <FontAwesomeIcon icon={faRightFromBracket} />
         </button>
       </div>

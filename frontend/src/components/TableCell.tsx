@@ -40,8 +40,6 @@ export function TableCell({
       return value?.split(",").map((tag: string) => tag.trim());
     }, [value]);
 
-    console.log(tags);
-
     useEffect(() => {
       if (editing) inputRef.current?.focus();
     }, [editing]);

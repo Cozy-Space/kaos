@@ -1,10 +1,10 @@
-import { Column, Table, ValuedColumn } from "../components/Table";
+import { Column, Table, ValuedColumn } from "../../components/Table";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useApi, useContainerApi, useLocationApi } from "../hooks/ApiHook";
-import { ApiContext } from "../App";
+import { useApi, useContainerApi, useLocationApi } from "../../hooks/ApiHook";
+import { ApiContext } from "../../App";
 import { text } from "@fortawesome/fontawesome-svg-core";
-import { Filter } from "../components/Filter";
-import { ImageUpload } from "../components/ImageUpload";
+import { Filter } from "../../components/Filter";
+import { ImageUpload } from "../../components/ImageUpload";
 
 const columns: Column[] = [
   {
@@ -41,9 +41,8 @@ const columns: Column[] = [
 ];
 
 export function Containers() {
-  const locationApi = useLocationApi();
-
   const containerApi = useContainerApi();
+  const locationApi = useLocationApi();
 
   const [query, setQuery] = useState("");
 
@@ -63,6 +62,11 @@ export function Containers() {
   const handleCodeScan = (code: string) => {
     table.current?.selectCode(code);
   };
+
+  useEffect(() => {
+    containerApi.load();
+    locationApi.load();
+  }, []);
 
   return (
     <div>

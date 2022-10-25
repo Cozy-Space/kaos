@@ -1,11 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class LoginGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    return true;
+  canActivate(context: ExecutionContext): boolean {
+    const session = context.switchToHttp().getRequest().session;
+    return session?.user;
   }
 }

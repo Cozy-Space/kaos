@@ -7,14 +7,17 @@ import {
   Post,
   StreamableFile,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { createReadStream } from 'fs';
 import { join, relative } from 'path';
+import { LoginGuard } from 'src/login.guard';
 import { ImageService } from './image.service';
 
 @Controller('image')
+@UseGuards(LoginGuard)
 export class ImageController {
   constructor(private imageService: ImageService) {}
 

@@ -1,8 +1,25 @@
-import { Body, Controller, Get, Post, Session } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Req,
+  Res,
+  Session,
+  UseGuards,
+} from '@nestjs/common';
+import { Response } from 'express';
+import { LoginGuard } from 'src/login.guard';
 import { LoginDto } from './dtos/login.dto';
 import { StatusDto } from './dtos/status.dto';
 import { SuccessDto } from './dtos/success.dto';
 import { LoginService } from './login.service';
+
+const wait = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 @Controller('login')
 export class LoginController {
@@ -12,21 +29,32 @@ export class LoginController {
   async login(
     @Body() body: LoginDto,
     @Session() session: any,
-  ): Promise<SuccessDto> {
-    const success = await this.loginService.verify(body);
-    console.log(session);
-    session.authenicated = success;
-    console.log(success);
-    return { success };
+    @Res() res: Response,
+  ) {
+    await wait(1000);
+    if (!body || !body.name || !body.password) {
+      res.sendStatus(401);
+      return;
+    }
+
+    const login = await this.loginService.verify(body);
+    if (!login) {
+      res.sendStatus(401);
+      return;
+    }
+    session.user = login;
+    res.sendStatus(204);
   }
 
-  @Post('/create')
-  async create(@Body() body: LoginDto) {
-    return this.loginService.createAccount(body);
+  @Get('logout')
+  @HttpCode(204)
+  async logout(@Session() session: any) {
+    session.destroy();
   }
 
-  @Get('status')
-  async status(): Promise<StatusDto> {
-    return { status: !(await this.loginService.hasNoAccount()) };
+  @Get('me')
+  @UseGuards(LoginGuard)
+  async me(@Session() session: any): Promise<LoginDto> {
+    return session.user;
   }
 }
