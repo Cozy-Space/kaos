@@ -12,9 +12,15 @@ import { ImageModule } from './image/image.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { LoginModule } from './login/login.module';
 import { LoginEntity } from './login/login.entity';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 3,
+    }),
     ContainerModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
@@ -32,6 +38,6 @@ import { LoginEntity } from './login/login.entity';
     LoginModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}

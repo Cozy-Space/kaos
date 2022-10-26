@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 import { ContainerService } from './container.service';
 import { ContainerEntity } from './container.entity';
 import { LoginGuard } from 'src/login.guard';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @UseGuards(LoginGuard)
 @Controller('container')
+@SkipThrottle()
 export class ContainerController {
   constructor(private containerService: ContainerService) {}
 

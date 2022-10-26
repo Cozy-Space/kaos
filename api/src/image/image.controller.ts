@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { SkipThrottle } from '@nestjs/throttler';
 import { createReadStream } from 'fs';
 import { join, relative } from 'path';
 import { LoginGuard } from 'src/login.guard';
@@ -18,6 +19,7 @@ import { ImageService } from './image.service';
 
 @Controller('image')
 @UseGuards(LoginGuard)
+@SkipThrottle()
 export class ImageController {
   constructor(private imageService: ImageService) {}
 

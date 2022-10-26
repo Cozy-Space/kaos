@@ -1,8 +1,7 @@
-import classNames from "classnames";
-import { useState } from "react";
 import { useLogin } from "../hooks/LoginHook";
 import { faLock, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LabeledInput } from "../components/LabeledInput";
 
 export function Login() {
   const loginApi = useLogin();
@@ -15,7 +14,7 @@ export function Login() {
   return (
     <div className="text-center">
       <form
-        className="w-full relative top-10 inline-block text-left max-w-md  border-slate-500 rounded-lg px-6 py-4 inline-flex flex-col gap-2"
+        className="w-full relative top-10 text-left max-w-md  border-slate-500 rounded-lg px-6 py-4 inline-flex flex-col gap-2"
         onSubmit={handleSubmit}
       >
         <h1 className="text-3xl font-bold text-slate-700">Login</h1>
@@ -43,41 +42,6 @@ export function Login() {
           )}
         </button>
       </form>
-    </div>
-  );
-}
-
-interface LabeledInputProps {
-  label: string;
-  type: string;
-  name: string;
-}
-
-function LabeledInput({ label, type, name }: LabeledInputProps) {
-  const [value, setValue] = useState<string>("");
-  const [focus, setFocus] = useState<boolean>(false);
-
-  const active = !!value || focus;
-
-  return (
-    <div className="relative">
-      <div
-        className={classNames(
-          "absolute left-3 pointer-events-none transition-all text-slate-500 ",
-          { "top-2.5 text-md italic": !active },
-          { "top-1 text-xs ": active }
-        )}
-      >
-        {label}
-      </div>
-      <input
-        className="pb-1 pt-4 w-full px-3 border border-slate-400 rounded-lg"
-        name={name}
-        type={type}
-        onChange={(event) => setValue(event.target.value)}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-      />
     </div>
   );
 }

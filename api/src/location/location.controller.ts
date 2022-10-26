@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { LocationEntity } from './location.entity';
 import { LoginGuard } from 'src/login.guard';
+import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('location')
 @UseGuards(LoginGuard)
+@SkipThrottle()
 export class LocationController {
   constructor(private locationService: LocationService) {}
 

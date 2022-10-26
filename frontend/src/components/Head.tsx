@@ -1,5 +1,6 @@
 import {
   faRightFromBracket,
+  faGear,
   faTruck,
   faBoxOpen,
   faCircle,
@@ -61,6 +62,14 @@ export function Head() {
         </Link>
       ))}
       <div className={"ml-auto flex gap-1"}>
+        <button
+          onClick={() => navigate("/dashboard/settings")}
+          className={
+            "h-8 w-8 gap-2 text-white text-sm mb-1 flex items-center justify-center bg-slate-500 rounded-full"
+          }
+        >
+          <FontAwesomeIcon icon={faGear} />
+        </button>
         <button
           onClick={logout}
           className={

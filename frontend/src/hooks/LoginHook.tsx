@@ -12,6 +12,9 @@ interface AuthenticationApiType {
   login: (name: string, password: string) => void;
   me: { name: string; id: number } | null;
   logout: () => void;
+  changePassword: (oldPassword: string, newPassword: string) => void;
+  changingPassword: boolean;
+  passwordChangeFailed: boolean;
   loggingIn: boolean;
   loginFailed: boolean;
 }
@@ -22,6 +25,9 @@ const AuthenticationContext = createContext<AuthenticationApiType>({
   logout: () => {},
   loggingIn: false,
   loginFailed: false,
+  changingPassword: false,
+  passwordChangeFailed: false,
+  changePassword: (f) => f,
 });
 
 interface AuthenticationProviderProps {
@@ -37,6 +43,9 @@ export const AuthenticationProvider = ({
   const [status, setStatus] = useState<ApiState>("PREPARING");
   const [loggingIn, setLoggingIn] = useState<boolean>(false);
   const [loginFailed, setLoginFailed] = useState<boolean>(false);
+  const [changingPassword, setChangingPassword] = useState<boolean>(false);
+  const [passwordChangeFailed, setPasswordChangeFailed] =
+    useState<boolean>(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -55,6 +64,17 @@ export const AuthenticationProvider = ({
         setLoggingIn(false);
       });
     fetchMe();
+  };
+
+  const changePassword = async (oldPassword: string, newPassword: string) => {
+    setChangingPassword(true);
+    await axios
+      .put("/api/login", { oldPassword, newPassword })
+      .then(() => {
+        setPasswordChangeFailed(false), logout();
+      })
+      .catch(() => setPasswordChangeFailed(true))
+      .finally(() => setChangingPassword(false));
   };
 
   const logout = async () => {
@@ -99,6 +119,9 @@ export const AuthenticationProvider = ({
         logout,
         loggingIn,
         loginFailed,
+        changePassword,
+        changingPassword,
+        passwordChangeFailed,
       }}
     >
       {children}
