@@ -22,8 +22,9 @@ export class BackupService {
     this.backupPath = join(this.rootPath, 'database_backup');
     this.databasePath = join(this.rootPath, 'database', 'database.sqlite');
     this.ensureBackupDir();
+    this.routine();
     new CronJob('0 1 0 * * *', this.cleanup).start();
-    new CronJob('0 */20 * * * *', this.routine).start();
+    new CronJob('0 0 * * * *', this.routine).start();
   }
 
   ensureBackupDir() {
