@@ -65,6 +65,7 @@ export class LoginController {
   }
 
   @Get('logout')
+  @SkipThrottle()
   @HttpCode(204)
   async logout(@Session() session: any) {
     session.destroy();
