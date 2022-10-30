@@ -16,6 +16,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { CodeModule } from './code/code.module';
 import { CodeEntity } from './code/code.entity';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { CodeEntity } from './code/code.entity';
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'static'),
     }),
+    ConfigModule.forRoot(),
     LocationModule,
     BackupModule,
     ImageModule,
