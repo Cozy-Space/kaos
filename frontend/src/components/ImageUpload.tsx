@@ -3,6 +3,7 @@ import { faUpload, faImage, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { ImageView } from "./ImageView";
+import { useAlert } from "./Alert";
 
 interface ImageUploadProps {
   value: string | void;
@@ -12,6 +13,8 @@ interface ImageUploadProps {
 export function ImageUpload({ value, onChange }: ImageUploadProps) {
   const [viewOpen, setViewOpen] = useState<boolean>(false);
   const fileInput = createRef<HTMLInputElement>();
+
+  const spawn = useAlert();
 
   const handleChose = () => {
     fileInput.current?.click();
@@ -31,6 +34,11 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
       .then((data) => data.json())
       .then((data) => onChange(data.id));
   };
+
+  const handleDelete = () => {
+    spawn("u really want dis?", () => onChange(""));
+  };
+
   return (
     <>
       <ImageView
@@ -57,7 +65,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
             " text-red-200": !value,
             "hover:bg-red-500 hover:text-white text-red-500": value,
           })}
-          onClick={() => onChange("")}
+          onClick={handleDelete}
           icon={faRemove}
         />
       </div>

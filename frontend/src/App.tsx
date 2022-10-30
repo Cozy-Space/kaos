@@ -16,6 +16,7 @@ import { Login } from "./views/Login";
 import { AuthenticationProvider } from "./hooks/LoginHook";
 import { Dashboard } from "./views/Dasboard";
 import { Code } from "./views/Code";
+import { AlertProvider } from "./components/Alert";
 
 export const ApiContext: Context<any> = createContext({} as any);
 
@@ -25,15 +26,17 @@ function App() {
 
   return (
     <div className="App">
-      <AuthenticationProvider>
-        <ApiContext.Provider value={{ locationApi, containerApi }}>
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="code/:code" element={<Code />} />
-            <Route path="dashboard/*" element={<Dashboard />} />
-          </Routes>
-        </ApiContext.Provider>
-      </AuthenticationProvider>
+      <AlertProvider>
+        <AuthenticationProvider>
+          <ApiContext.Provider value={{ locationApi, containerApi }}>
+            <Routes>
+              <Route path="login" element={<Login />} />
+              <Route path="code/:code" element={<Code />} />
+              <Route path="dashboard/*" element={<Dashboard />} />
+            </Routes>
+          </ApiContext.Provider>
+        </AuthenticationProvider>
+      </AlertProvider>
     </div>
   );
 }
