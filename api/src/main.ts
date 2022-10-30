@@ -12,7 +12,7 @@ async function bootstrap() {
 
   app.use(
     session({
-      secret: configService.get('SESSION_SECRET'),
+      secret: configService.get('SESSION_SECRET') || 'unsecure',
       resave: false,
       saveUninitialized: false,
       cookie: {
