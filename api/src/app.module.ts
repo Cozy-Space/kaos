@@ -14,6 +14,8 @@ import { LoginModule } from './login/login.module';
 import { LoginEntity } from './login/login.entity';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { CodeModule } from './code/code.module';
+import { CodeEntity } from './code/code.entity';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { APP_GUARD } from '@nestjs/core';
       database: join(process.cwd(), 'database', 'database.sqlite'),
       logging: true,
       synchronize: true,
-      entities: [ContainerEntity, LocationEntity, LoginEntity],
+      entities: [ContainerEntity, LocationEntity, LoginEntity, CodeEntity],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'static'),
@@ -36,6 +38,7 @@ import { APP_GUARD } from '@nestjs/core';
     BackupModule,
     ImageModule,
     LoginModule,
+    CodeModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],

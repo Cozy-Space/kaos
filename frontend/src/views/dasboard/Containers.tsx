@@ -5,6 +5,7 @@ import { ApiContext } from "../../App";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import { Filter } from "../../components/Filter";
 import { ImageUpload } from "../../components/ImageUpload";
+import { useLocation, useParams } from "react-router-dom";
 
 const columns: Column[] = [
   {
@@ -46,6 +47,8 @@ export function Containers() {
 
   const [query, setQuery] = useState("");
 
+  const location = useLocation();
+
   const table: any = useRef();
 
   const setAllNames = (location: any) => {
@@ -54,9 +57,9 @@ export function Containers() {
 
   const filter = (row: any) =>
     !query ||
-    row.name.includes(query) ||
-    row.tags.includes(query) ||
-    row.code.includes(query) ||
+    row.name?.includes(query) ||
+    row.tags?.includes(query) ||
+    row.code?.includes(query) ||
     row.location?.name.includes(query);
 
   const handleCodeScan = (code: string) => {
@@ -68,6 +71,16 @@ export function Containers() {
     locationApi.load();
   }, []);
 
+  useEffect(() => {
+    const q = location.search
+      .replace("?", "")
+      .split("&")
+      .map((p) => p.split("="))
+      .find(([key]) => key === "q")?.[1];
+
+    if (q) setQuery(q);
+  }, [location]);
+
   return (
     <div>
       {/*<input className={'bg-slate-200 p-4 mb-2 rounded-full'} value={query} onChange={(event) => setQuery(event.currentTarget.value)} />*/}
@@ -75,6 +88,7 @@ export function Containers() {
 
       <Filter
         onUpdateQuery={setQuery}
+        query={query}
         onSetLocation={setAllNames}
         onCodeScan={handleCodeScan}
       />

@@ -1,9 +1,7 @@
 import {
   faRightFromBracket,
   faGear,
-  faTruck,
-  faBoxOpen,
-  faCircle,
+  faStickyNote,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -62,6 +60,14 @@ export function Head() {
         </Link>
       ))}
       <div className={"ml-auto flex gap-1"}>
+        <button
+          onClick={() => navigate("/dashboard/sticker")}
+          className={
+            "h-8 w-8 gap-2 text-white text-sm mb-1 flex items-center justify-center bg-slate-500 rounded-full"
+          }
+        >
+          <FontAwesomeIcon icon={faStickyNote} />
+        </button>
         <button
           onClick={() => navigate("/dashboard/settings")}
           className={

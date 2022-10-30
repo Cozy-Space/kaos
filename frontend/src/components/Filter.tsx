@@ -13,24 +13,20 @@ interface FilterProps {
   onUpdateQuery: (query: string) => void;
   onSetLocation: (location: any) => void;
   onCodeScan: (code: string) => void;
+  query: string;
 }
 
 export function Filter({
   onUpdateQuery = (f) => f,
   onSetLocation = (f) => f,
   onCodeScan = (f) => f,
+  query,
 }: FilterProps) {
-  const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    onUpdateQuery(query);
-  }, [query]);
-
   return (
     <div className={"flex my-4 gap-2 flex-col md:flex-row"}>
-      <Search value={query} onChange={setQuery} />
+      <Search value={query} onChange={onUpdateQuery} />
       <SetLocation onSet={onSetLocation} />
-      <Select onFocus={() => setQuery("")} onScan={onCodeScan} />
+      <Select onFocus={() => onUpdateQuery("")} onScan={onCodeScan} />
     </div>
   );
 }

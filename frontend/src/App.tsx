@@ -15,6 +15,7 @@ import { useApi } from "./hooks/ApiHook";
 import { Login } from "./views/Login";
 import { AuthenticationProvider } from "./hooks/LoginHook";
 import { Dashboard } from "./views/Dasboard";
+import { Code } from "./views/Code";
 
 export const ApiContext: Context<any> = createContext({} as any);
 
@@ -28,6 +29,7 @@ function App() {
         <ApiContext.Provider value={{ locationApi, containerApi }}>
           <Routes>
             <Route path="login" element={<Login />} />
+            <Route path="code/:code" element={<Code />} />
             <Route path="dashboard/*" element={<Dashboard />} />
           </Routes>
         </ApiContext.Provider>
