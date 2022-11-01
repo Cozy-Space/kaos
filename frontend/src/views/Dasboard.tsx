@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Head } from "../components/Head";
+import { ContainerDetail } from "./dasboard/ContainerDetail";
 import { Containers } from "./dasboard/Containers";
 import { Locations } from "./dasboard/Locations";
 import { Settings } from "./dasboard/Settings";
@@ -12,6 +13,7 @@ export function Dashboard() {
       <Head />
       <Routes>
         <Route path="containers" element={<Containers />} />
+        <Route path="containers/:id" element={<ContainerDetail />} />
         <Route path="locations" element={<Locations />} />
         <Route path="settings" element={<Settings />} />
         <Route path="sticker" element={<StickerPage />} />

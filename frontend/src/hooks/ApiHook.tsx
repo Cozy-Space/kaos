@@ -7,6 +7,7 @@ export interface Api {
   load: () => void;
   save: (row: any) => void;
   remove: (row: any) => void;
+  getById: (id: number) => Promise<any>
 }
 
 export function useApi(endpoint: string): Api {
@@ -33,9 +34,13 @@ export function useApi(endpoint: string): Api {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: row.id }),
     });
-  };
+  }
 
-  return { data, load, save, remove };
+    const getById = async (id: number): Promise<any> => fetch(`${endpoint}/${id}`)
+      .then(data => data.json())
+    
+
+  return { data, load, save, remove, getById };
 }
 
 export function useLocationApi(): Api {

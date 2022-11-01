@@ -1,7 +1,6 @@
 import { Column, Table, ValuedColumn } from "../../components/Table";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useApi, useContainerApi, useLocationApi } from "../../hooks/ApiHook";
-import { ApiContext } from "../../App";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import { Filter } from "../../components/Filter";
 import { ImageUpload } from "../../components/ImageUpload";

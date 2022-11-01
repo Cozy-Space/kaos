@@ -6,7 +6,7 @@ export function Code() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (params.code) navigate(`/dashboard/containers?q=${params.code}`);
+    if (params.code) navigate(`/dashboard/containers/${params.code}`);
   }, [params]);
   return <div></div>;
 }

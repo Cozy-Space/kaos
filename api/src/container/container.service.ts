@@ -21,6 +21,10 @@ export class ContainerService {
     return this.containerRepository.find({ relations: ['location'] });
   }
 
+  async findById(id: number): Promise<ContainerEntity>{
+    return this.containerRepository.findOneBy({id})
+  }
+
   async remove(container: ContainerEntity): Promise<ContainerEntity> {
     return this.containerRepository.remove(container);
   }

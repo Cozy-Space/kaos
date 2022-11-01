@@ -8,7 +8,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { useContainerApi } from "../hooks/ApiHook";
 import { useContext, useState } from "react";
-import { ApiContext } from "../App";
 import { useLogin } from "../hooks/LoginHook";
 
 const links = [

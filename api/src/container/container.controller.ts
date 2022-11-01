@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ContainerService } from './container.service';
 import { ContainerEntity } from './container.entity';
 import { LoginGuard } from 'src/login.guard';
@@ -13,6 +13,11 @@ export class ContainerController {
   @Get()
   async findAll(): Promise<ContainerEntity[]> {
     return this.containerService.findAll();
+  }
+
+  @Get(':id')
+  async findById(@Param('id') id: number): Promise<ContainerEntity>{
+    return this.containerService.findById(id)
   }
 
   @Post()

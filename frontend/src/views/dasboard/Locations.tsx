@@ -1,7 +1,6 @@
 import { useApi, useLocationApi } from "../../hooks/ApiHook";
 import { Column, Table, ValuedColumn } from "../../components/Table";
 import { useContext, useEffect } from "react";
-import { ApiContext } from "../../App";
 
 const columns: Column[] = [
   {
