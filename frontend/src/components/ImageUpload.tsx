@@ -3,7 +3,7 @@ import { faUpload, faImage, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames";
 import { ImageView } from "./ImageView";
-import { useAlert } from "./Alert";
+import { useAlert } from "../hooks/AlertHook";
 
 interface ImageUploadProps {
   value: string | void;

@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { ApiContext } from "../App";
+import { useContext, useState } from "react";
+import { ApiContext } from "../context/ApiContext";
 
 export interface Api {
   data: any[];

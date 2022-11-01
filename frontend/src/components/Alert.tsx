@@ -1,11 +1,3 @@
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-
 interface AlertProps {
   text: string;
   onYes: () => void;
@@ -43,48 +35,4 @@ export function Alert({ text, onYes, onClose }: AlertProps) {
       </div>
     </>
   );
-}
-
-interface AlertContextType {
-  spawn: (text: string, yes: () => void) => void;
-}
-
-const AlertContext = createContext<AlertContextType>({ spawn: (f) => f });
-
-interface AlertProviderProps {
-  children: ReactNode | ReactNode[];
-}
-
-export function AlertProvider({ children }: AlertProviderProps) {
-  let id = 0;
-  const [alerts, setAlerts] = useState<any>([]);
-  const spawn = (text: string, yes: () => void) => {
-    setAlerts((current: any) => [...current, { text, yes, id }]);
-    id++;
-  };
-
-  const del = (id: number) => {
-    setAlerts((current: any) =>
-      current.filter((alert: any) => alert.id !== id)
-    );
-  };
-
-  return (
-    <AlertContext.Provider value={{ spawn }}>
-      {alerts.map((alert: any) => (
-        <Alert
-          key={alert.id}
-          text={alert.text}
-          onYes={alert.yes}
-          onClose={() => del(alert.id)}
-        />
-      ))}
-      {children}
-    </AlertContext.Provider>
-  );
-}
-
-export function useAlert() {
-  const context = useContext(AlertContext);
-  return context.spawn;
 }
