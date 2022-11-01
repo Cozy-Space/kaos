@@ -6,7 +6,16 @@ export function Code() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (params.code) navigate(`/dashboard/containers/${params.code}`);
+    if (!params.code) return;
+    fetch(`/api/container?code=${params.code}`)
+      .then((data) => data.json())
+      .then((containers) => {
+        if (containers[0]) {
+          navigate(`/dashboard/containers/${containers[0].id}`);
+        } else {
+          navigate("/dashboard");
+        }
+      });
   }, [params]);
   return <div></div>;
 }

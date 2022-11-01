@@ -21,8 +21,12 @@ export class ContainerService {
     return this.containerRepository.find({ relations: ['location'] });
   }
 
-  async findById(id: number): Promise<ContainerEntity>{
-    return this.containerRepository.findOneBy({id})
+  async findById(id: number): Promise<ContainerEntity> {
+    return this.containerRepository.findOneBy({ id });
+  }
+
+  async findByCode(code: string): Promise<ContainerEntity[]> {
+    return this.containerRepository.findBy({ code });
   }
 
   async remove(container: ContainerEntity): Promise<ContainerEntity> {

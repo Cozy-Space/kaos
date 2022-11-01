@@ -1,23 +1,34 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { ContainerService } from './container.service';
 import { ContainerEntity } from './container.entity';
 import { LoginGuard } from 'src/login.guard';
 import { SkipThrottle } from '@nestjs/throttler';
 
-@UseGuards(LoginGuard)
+//@UseGuards(LoginGuard)
 @Controller('container')
 @SkipThrottle()
 export class ContainerController {
   constructor(private containerService: ContainerService) {}
 
   @Get()
-  async findAll(): Promise<ContainerEntity[]> {
-    return this.containerService.findAll();
+  async findAll(@Query('code') code: string): Promise<ContainerEntity[]> {
+    return code
+      ? this.containerService.findByCode(code)
+      : this.containerService.findAll();
   }
 
   @Get(':id')
-  async findById(@Param('id') id: number): Promise<ContainerEntity>{
-    return this.containerService.findById(id)
+  async findById(@Param('id') id: number): Promise<ContainerEntity> {
+    return this.containerService.findById(id);
   }
 
   @Post()
