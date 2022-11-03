@@ -4,7 +4,12 @@ import { useApi, useContainerApi, useLocationApi } from "../../hooks/ApiHook";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import { Filter } from "../../components/Filter";
 import { ImageUpload } from "../../components/ImageUpload";
-import { useLocation, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 
 const columns: Column[] = [
   {
@@ -44,9 +49,9 @@ export function Containers() {
   const containerApi = useContainerApi();
   const locationApi = useLocationApi();
 
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const location = useLocation();
+  const navigate = useNavigate();
 
   const table: any = useRef();
 
@@ -54,12 +59,16 @@ export function Containers() {
     table.current?.setSomething("location", location);
   };
 
-  const filter = (row: any) =>
-    !query ||
-    row.name?.includes(query) ||
-    row.tags?.includes(query) ||
-    row.code?.includes(query) ||
-    row.location?.name.includes(query);
+  const filter = (row: any) => {
+    const query = searchParams.get("query");
+    return (
+      !query ||
+      row.name?.includes(query) ||
+      row.tags?.includes(query) ||
+      row.code?.includes(query) ||
+      row.location?.name.includes(query)
+    );
+  };
 
   const handleCodeScan = (code: string) => {
     table.current?.selectCode(code);
@@ -70,28 +79,21 @@ export function Containers() {
     locationApi.load();
   }, []);
 
-  useEffect(() => {
-    const q = location.search
-      .replace("?", "")
-      .split("&")
-      .map((p) => p.split("="))
-      .find(([key]) => key === "q")?.[1];
-
-    if (q) setQuery(q);
-  }, [location]);
-
   return (
     <div>
-      {/*<input className={'bg-slate-200 p-4 mb-2 rounded-full'} value={query} onChange={(event) => setQuery(event.currentTarget.value)} />*/}
-      {/*<button className={'relative bg-slate-600 text-white px-4 py-2 rounded-3xl hover:bg-slate-700 hover:rounded-md active:bg-slate-800 active:top-0.5  focus:outline-none transition-all'} onClick={setAllNames}>SetAllNames</button>*/}
-
       <Filter
-        onUpdateQuery={setQuery}
-        query={query}
+        onUpdateQuery={(value) => setSearchParams({ query: value })}
+        query={searchParams.get("query") || ""}
         onSetLocation={setAllNames}
         onCodeScan={handleCodeScan}
       />
-      <Table ref={table} api={containerApi} columns={columns} filter={filter} />
+      <Table
+        onOpen={(id) => navigate("/dashboard/containers/" + id)}
+        ref={table}
+        api={containerApi}
+        columns={columns}
+        filter={filter}
+      />
     </div>
   );
 }

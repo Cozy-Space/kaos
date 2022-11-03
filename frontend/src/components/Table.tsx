@@ -22,10 +22,14 @@ interface TableProps {
   api: Api;
   columns: Column[];
   filter?: (row: any) => boolean;
+  onOpen?: (id: number) => void;
 }
 
 export const Table = forwardRef(
-  ({ api, columns, filter = () => true }: TableProps, ref) => {
+  (
+    { api, columns, filter = () => true, onOpen = () => {} }: TableProps,
+    ref
+  ) => {
     const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
     const handleUpdate = async (updatedRow: any) => {
@@ -79,6 +83,7 @@ export const Table = forwardRef(
           <tbody>
             {getRows().map((row: any, key: number) => (
               <TableRow
+                onClick={() => onOpen(row.id)}
                 onSelectChange={handleSelect}
                 selected={selectedIds.includes(row.id)}
                 key={row.id || -1}

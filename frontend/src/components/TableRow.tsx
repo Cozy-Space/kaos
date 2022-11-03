@@ -12,6 +12,7 @@ interface TableRowProps {
   onDelete?: (row: any) => void;
   onSelectChange?: (id: number, checked: boolean) => void;
   selected?: boolean;
+  onClick?: () => void;
 }
 
 export function TableRow({
@@ -21,6 +22,7 @@ export function TableRow({
   onDelete = () => {},
   onSelectChange = () => {},
   selected = false,
+  onClick = () => {},
 }: TableRowProps) {
   const [saveObject, setSaveObject] = useState<any>();
 
@@ -35,7 +37,10 @@ export function TableRow({
   };
 
   return (
-    <tr className={"border-b border-slate-200 last:border-b-0"}>
+    <tr
+      onClick={onClick}
+      className={"border-b border-slate-200 last:border-b-0"}
+    >
       <td className={"pl-4"}>
         {!!row && (
           <Checkbox
