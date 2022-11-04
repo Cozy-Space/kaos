@@ -1,23 +1,8 @@
-import { useApi, useLocationApi } from "../../hooks/ApiHook";
-import { Column, Table, ValuedColumn } from "../../components/Table";
-import { useContext, useEffect, useState } from "react";
+import { useLocationApi } from "../../hooks/ApiHook";
+import { useEffect, useState } from "react";
 import { LocationList } from "../../components/LocationList";
 import { Filter } from "../../components/Filter";
 import { useSearchParams } from "react-router-dom";
-
-const columns: Column[] = [
-  {
-    name: "id",
-    type: "head",
-    displayName: "ID",
-    immutable: true,
-  },
-  {
-    name: "name",
-    type: "text",
-    displayName: "Name",
-  },
-];
 
 export function Locations() {
   const locationsApi = useLocationApi();
