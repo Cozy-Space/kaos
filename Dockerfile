@@ -40,5 +40,6 @@ COPY --from=build-frontend /usr/src/app/dist /usr/src/app/static
 COPY --chown=node:node api/package*.json ./
 RUN npm ci
 
+COPY --chown=node:node api/default_media /usr/src/app/default_media
 
 CMD [ "node", "main.js" ]
