@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { ApiContext } from "../context/ApiContext";
+import { Container } from "../types/Container";
+import { Location } from "../types/Location";
 
-export interface Api {
-  data: any[];
+export interface Api<T> {
+  data: T[];
   load: () => void;
-  save: (row: any) => void;
-  remove: (row: any) => void;
-  getById: (id: number) => Promise<any>
+  save: (row: Partial<T>) => void;
+  remove: (row: Partial<T>) => void;
+  getById: (id: number) => Promise<any>;
 }
 
-export function useApi(endpoint: string): Api {
+export function useApi<T>(endpoint: string): Api<T> {
   const [data, setData] = useState<any[]>([]);
 
   const load = async () => {
@@ -34,19 +36,18 @@ export function useApi(endpoint: string): Api {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: row.id }),
     });
-  }
+  };
 
-    const getById = async (id: number): Promise<any> => fetch(`${endpoint}/${id}`)
-      .then(data => data.json())
-    
+  const getById = async (id: number): Promise<any> =>
+    fetch(`${endpoint}/${id}`).then((data) => data.json());
 
   return { data, load, save, remove, getById };
 }
 
-export function useLocationApi(): Api {
+export function useLocationApi(): Api<Location> {
   return useContext(ApiContext).locationApi;
 }
 
-export function useContainerApi(): Api {
+export function useContainerApi(): Api<Container> {
   return useContext(ApiContext).containerApi;
 }

@@ -11,21 +11,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Barcode from "react-barcode";
 import { Checkbox } from "./Checkbox";
 import classNames from "classnames";
+import { TagInput } from "./TagInput";
 
 interface Props {
   container: Container;
+  onClick: () => void;
   selected?: boolean;
 }
 
-export function ContainerListItem({ container, selected = false }: Props) {
+export function ContainerListItem({
+  container,
+  selected = false,
+  onClick,
+}: Props) {
   const navigate = useNavigate();
-  const handleClick = () => navigate("/dashboard/containers/" + container.id);
+
   return (
     <div
       className={classNames(
         "w-full border-b last:border-b-0 hover:bg-slate-100 text-left flex-nowrap border-slate-200 rounded-sm md:flex flex-row grid grid-cols-2 items-center gap-3 py-4 px-2 transition-colors"
       )}
-      onClick={handleClick}
+      onClick={onClick}
     >
       <div className="font-bold w-44">{container.name}</div>
 
@@ -33,16 +39,13 @@ export function ContainerListItem({ container, selected = false }: Props) {
         {container.code}
       </div>
 
-      <div className={" text-slate-500 w-44"}>
+      <div className={" w-44"}>
         <FontAwesomeIcon icon={faLocationDot} className="pr-1" />
         {container.location?.name}
       </div>
-      <div className="row-span-2 md:flex overflow-hidden hidden flex-row gap-1 mr-auto">
-        {container.tags?.split(",").map((tag) => (
-          <Tag text={tag} />
-        ))}
-      </div>
-      <div className="font-mono hidden md:block  text-black rounded-sm">
+      <TagInput defaultValue={container.tags} />
+
+      <div className="font-mono hidden md:block ml-auto text-black rounded-sm">
         {container.code}
       </div>
     </div>

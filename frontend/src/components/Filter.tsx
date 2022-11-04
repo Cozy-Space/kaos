@@ -9,62 +9,31 @@ import {
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { useLocationApi } from "../hooks/ApiHook";
+import { Search } from "./Search";
 
 interface FilterProps {
   onUpdateQuery: (query: string) => void;
-  onSetLocation: (location: any) => void;
-  onCodeScan: (code: string) => void;
   query: string;
+  addText: string;
+  onAddClick?: () => void;
 }
 
 export function Filter({
   onUpdateQuery = (f) => f,
-  onSetLocation = (f) => f,
-  onCodeScan = (f) => f,
   query,
+  addText,
+  onAddClick,
 }: FilterProps) {
   return (
     <div className={"flex my-4 gap-2 flex-col md:flex-row"}>
       <Search value={query} onChange={onUpdateQuery} />
-      <button className="bg-slate-700 text-white px-4 rounded-full">
+      <button
+        onClick={onAddClick}
+        className="bg-slate-700 text-white px-4 rounded-full"
+      >
         <FontAwesomeIcon icon={faPlus} className="pr-2" />
-        New Container
+        {addText}
       </button>
-      {/* <SetLocation onSet={onSetLocation} />
-      <Select onFocus={() => onUpdateQuery("")} onScan={onCodeScan} /> */}
-    </div>
-  );
-}
-
-interface SearchProps {
-  value: string;
-  onChange: (query: string) => void;
-}
-
-function Search({ value, onChange }: SearchProps) {
-  return (
-    <div
-      className={
-        "h-8 grow flex flex-row justify-center items-center border border-slate-300 gap-2 px-3 rounded-full"
-      }
-    >
-      {value ? (
-        <FontAwesomeIcon
-          onClick={() => onChange("")}
-          className={"text-slate-400"}
-          icon={faXmark}
-        />
-      ) : (
-        <FontAwesomeIcon className={"text-slate-400"} icon={faSearch} />
-      )}
-      <input
-        value={value}
-        onChange={(event) => onChange(event.currentTarget.value)}
-        type="text"
-        className={
-          "text-slate-600 grow h-full bg-transparent focus:outline-none"
-        }
-      />
     </div>
   );
 }

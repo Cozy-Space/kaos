@@ -4,12 +4,13 @@ import {
   faStickyNote,
   faCube,
   faLocationDot,
+  faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { useContainerApi } from "../hooks/ApiHook";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { useLogin } from "../hooks/LoginHook";
 import { FontawesomeObject, IconProp } from "@fortawesome/fontawesome-svg-core";
 
@@ -26,24 +27,26 @@ const links = [
 
 export function Head() {
   const { pathname } = useLocation();
-
   const { logout, me } = useLogin();
+  const navigate = useNavigate();
 
   return (
     <div
       className={
-        "fixed left-0 top-0 flex flex-col items-end gap-4 bg-slate-700 h-screen p-2"
+        "fixed left-0 top-0 flex flex-col gap-4 bg-slate-700 h-screen p-2 items-center"
       }
     >
-      <div
-        className={
-          "text-sm  text-white font-bold w-14 h-10 pt-3 flex items-center justify-center rounded-lg"
-        }
-      >
-        KAOS
-      </div>
+      <img
+        onClick={() => navigate("/dashboard/containers")}
+        src="/kaos_t.svg"
+        className="h-14 rounded-lgq"
+        alt=""
+      />
+      <div className="bg-slate-500 h-1 w-8 rounded-full"></div>
+
       <Item text="Container" icon={faCube} link="/dashboard/containers" />
       <Item text="Locations" icon={faLocationDot} link="/dashboard/locations" />
+      <Item text="Move" icon={faTruck} link="/dashboard/move" />
       <Item text="Sticker" icon={faStickyNote} link="/dashboard/sticker" />
       <Item text="Settings" icon={faGear} link="/dashboard/settings" />
       <Item
@@ -72,6 +75,12 @@ function Item({
   className = "",
 }: ItemProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const active = useMemo(
+    () => location.pathname.startsWith(link || "x"),
+    [location, link]
+  );
 
   const handleClick = () => {
     if (link) navigate(link);
@@ -82,8 +91,9 @@ function Item({
     <div
       onClick={handleClick}
       className={classNames(
-        "group h-14 w-14 bg-slate-500 text-white hover:bg-blue-400  relative flex items-center justify-center text-lg shadow-md rounded-[30px] hover:rounded-md transition-all",
-        className
+        "group h-14 w-14 bg-slate-500 text-white hover:bg-blue-400  relative flex items-center justify-center text-lg shadow-md rounded-[30px] hover:rounded-lg transition-all",
+        className,
+        { "bg-blue-400": active }
       )}
     >
       <FontAwesomeIcon icon={icon} />

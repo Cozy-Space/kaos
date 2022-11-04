@@ -18,7 +18,7 @@ export function LabeledInput({ label, type, name }: LabeledInputProps) {
       <div
         className={classNames(
           "absolute left-3 pointer-events-none transition-all text-slate-500 ",
-          { "top-2.5 text-md italic": !active },
+          { "top-2.5 text-md ": !active },
           { "top-1 text-xs ": active }
         )}
       >

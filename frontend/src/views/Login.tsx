@@ -12,15 +12,13 @@ export function Login() {
   };
 
   return (
-    <div className="text-center">
+    <div className="text-center bg-slate-900 min-h-screen">
       <form
         className="w-full relative top-10 text-left max-w-md  border-slate-500 rounded-lg px-6 py-4 inline-flex flex-col gap-2"
         onSubmit={handleSubmit}
       >
-        <h1 className="text-3xl font-bold text-slate-700">Login</h1>
-        <p className="text-slate-500">
-          Please contact fred to get access to this tool.{" "}
-        </p>
+        <img src="/kaos_full.svg" alt="" className="-mb-24  " />
+
         <LabeledInput type="text" name="username" label="Username" />
         <LabeledInput type="password" name="password" label="Password" />
         {loginApi.loginFailed && (

@@ -4,6 +4,6 @@ export type Container = {
   name: string;
   tags: string;
   imageUrl: string;
-  location?: Location;
+  location?: Partial<Location>;
   code: string;
 };

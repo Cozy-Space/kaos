@@ -13,7 +13,7 @@ import { ContainerEntity } from './container.entity';
 import { LoginGuard } from 'src/login.guard';
 import { SkipThrottle } from '@nestjs/throttler';
 
-//@UseGuards(LoginGuard)
+@UseGuards(LoginGuard)
 @Controller('container')
 @SkipThrottle()
 export class ContainerController {

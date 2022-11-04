@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SkipThrottle } from '@nestjs/throttler';
-import { createReadStream } from 'fs';
+import { createReadStream, existsSync, fstat } from 'fs';
 import { join, relative } from 'path';
 import { LoginGuard } from 'src/login.guard';
 import { ImageService } from './image.service';
@@ -33,7 +33,11 @@ export class ImageController {
   @Get('/:id')
   @Header('Content-Type', 'image/jpg')
   getStaticFile(@Param('id') id: string) {
-    const file = createReadStream(join(process.cwd(), 'media', id + '.jpg'));
-    return new StreamableFile(file);
+    const path = join(process.cwd(), 'media', id + '.jpg');
+    if (!existsSync(path))
+      return new StreamableFile(
+        createReadStream(join(process.cwd(), 'default_media', 'dummy.jpg')),
+      );
+    return new StreamableFile(createReadStream(path));
   }
 }

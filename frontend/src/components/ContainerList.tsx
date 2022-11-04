@@ -4,10 +4,11 @@ import { ContainerListItem } from "./ContainerListItem";
 
 interface Props {
   containers: Container[];
-  query: string;
+  onClick: (id: number) => void;
+  query?: string;
 }
 
-export function ContainerList({ containers, query = "" }: Props) {
+export function ContainerList({ containers, query = "", onClick }: Props) {
   const shownContainers = useMemo(
     () =>
       containers.filter(
@@ -16,7 +17,7 @@ export function ContainerList({ containers, query = "" }: Props) {
           container.name?.includes(query) ||
           container.tags?.includes(query) ||
           container.code?.includes(query) ||
-          container.location?.name.includes(query)
+          container.location?.name?.includes(query)
       ),
     [query, containers]
   );
@@ -24,7 +25,10 @@ export function ContainerList({ containers, query = "" }: Props) {
   return (
     <div className="flex flex-col">
       {shownContainers.map((container) => (
-        <ContainerListItem container={container} />
+        <ContainerListItem
+          onClick={() => onClick(container.id)}
+          container={container}
+        />
       ))}
     </div>
   );

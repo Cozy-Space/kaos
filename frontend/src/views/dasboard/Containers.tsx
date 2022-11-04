@@ -13,14 +13,8 @@ export function Containers() {
 
   const navigate = useNavigate();
 
-  const table: any = useRef();
-
-  const setAllNames = (location: any) => {
-    table.current?.setSomething("location", location);
-  };
-
-  const handleCodeScan = (code: string) => {
-    table.current?.selectCode(code);
+  const handleAdd = () => {
+    navigate("/dashboard/containers/new");
   };
 
   useEffect(() => {
@@ -29,14 +23,18 @@ export function Containers() {
   }, []);
 
   return (
-    <div className="flex-1 p-4">
+    <div className="flex-1 ">
+      <h1 className="text-left text-2xl text-slate-700 font-semibold">
+        Container
+      </h1>
       <Filter
         onUpdateQuery={(value) => setSearchParams({ query: value })}
         query={searchParams.get("query") || ""}
-        onSetLocation={setAllNames}
-        onCodeScan={handleCodeScan}
+        addText="Add Container"
+        onAddClick={handleAdd}
       />
       <ContainerList
+        onClick={(id) => navigate("/dashboard/containers/" + id)}
         containers={containerApi.data}
         query={searchParams.get("query") || ""}
       />

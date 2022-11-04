@@ -43,7 +43,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
     <>
       <ImageView
         open={viewOpen}
-        imageUrl={"/api/image/" + value}
+        imageUrl={"/api/image/" + (value || "dummy")}
         onClose={() => setViewOpen(false)}
       />
       <div className="p-1 rounded-lg bg-slate-100 inline-flex gap-2">
@@ -57,7 +57,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
             " text-slate-300": !value,
             "hover:bg-slate-300 text-slate-900": value,
           })}
-          onClick={() => setViewOpen(true)}
+          onClick={() => setViewOpen(true && !!value)}
           icon={faImage}
         />
         <FontAwesomeIcon
