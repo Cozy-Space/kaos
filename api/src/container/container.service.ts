@@ -22,11 +22,17 @@ export class ContainerService {
   }
 
   async findById(id: number): Promise<ContainerEntity> {
-    return this.containerRepository.findOneBy({ id });
+    return this.containerRepository.findOne({
+      where: { id },
+      relations: ['location'],
+    });
   }
 
   async findByCode(code: string): Promise<ContainerEntity[]> {
-    return this.containerRepository.findBy({ code });
+    return this.containerRepository.find({
+      where: { code },
+      relations: ['location'],
+    });
   }
 
   async remove(container: ContainerEntity): Promise<ContainerEntity> {

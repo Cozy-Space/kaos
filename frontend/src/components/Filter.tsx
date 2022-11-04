@@ -4,6 +4,7 @@ import {
   faXmark,
   faBarcode,
   faSpinner,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import classNames from "classnames";
@@ -25,8 +26,12 @@ export function Filter({
   return (
     <div className={"flex my-4 gap-2 flex-col md:flex-row"}>
       <Search value={query} onChange={onUpdateQuery} />
-      <SetLocation onSet={onSetLocation} />
-      <Select onFocus={() => onUpdateQuery("")} onScan={onCodeScan} />
+      <button className="bg-slate-700 text-white px-4 rounded-full">
+        <FontAwesomeIcon icon={faPlus} className="pr-2" />
+        New Container
+      </button>
+      {/* <SetLocation onSet={onSetLocation} />
+      <Select onFocus={() => onUpdateQuery("")} onScan={onCodeScan} /> */}
     </div>
   );
 }
@@ -40,7 +45,7 @@ function Search({ value, onChange }: SearchProps) {
   return (
     <div
       className={
-        "h-8 grow flex flex-row justify-center items-center border border-slate-200 rounded-full gap-2 px-3"
+        "h-8 grow flex flex-row justify-center items-center border border-slate-300 gap-2 px-3 rounded-full"
       }
     >
       {value ? (
@@ -96,7 +101,7 @@ function Select({ onScan, onFocus }: SelectProps) {
       onFocus={handleActive}
       onKeyDown={handleKeyDown}
       className={classNames(
-        "h-8 justify-center flex items-center gap-2 px-3 rounded-full transition-colors",
+        "h-8 justify-center flex items-center gap-2 px-3 rounded-sm transition-colors",
         { "bg-slate-900 text-white": listening },
         { "bg-slate-200": !listening }
       )}
@@ -125,7 +130,7 @@ function SetLocation({ onSet }: SetLocationProps) {
   };
 
   return (
-    <div className="h-8 flex items-center gap-2 px-3 rounded-full transition-colors bg-slate-200">
+    <div className="h-8 flex items-center gap-2 px-3 rounded-sm transition-colors bg-slate-200">
       <select
         className="bg-transparent w-full"
         onChange={(e) => setLocation({ id: e.currentTarget.value })}

@@ -9,7 +9,7 @@ import { Welcome } from "./Welcome";
 
 export function Dashboard() {
   return (
-    <div className="px-10 py-4">
+    <div className=" gap-6 pr-6 pl-24 min-h-screen text-center ">
       <Head />
       <Routes>
         <Route path="containers" element={<Containers />} />
