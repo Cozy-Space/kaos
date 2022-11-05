@@ -11,12 +11,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { ImageUpload } from "../../components/ImageUpload";
 import { Select } from "../../components/Select";
-import { Sticker } from "../../components/Sticker";
-import { Tag } from "../../components/Tag";
 import { TagInput } from "../../components/TagInput";
 import { useContainerApi, useLocationApi } from "../../hooks/ApiHook";
 import { Container } from "../../types/Container";
-import { Location } from "../../types/Location";
 
 export function ContainerDetail() {
   const params = useParams();

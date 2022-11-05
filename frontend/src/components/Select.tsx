@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { ReactNode, useState } from "react";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDebounce } from "use-debounce";
 interface Props {
   defaultId?: any;
   onChange: (value: any) => void;
@@ -15,8 +16,10 @@ export function Select({
   placeholder,
   values = [],
 }: Props) {
-  const [focus, setFocus] = useState<boolean>();
+  const [focus, setFocus] = useState<boolean>(false);
   const [currentId, setCurrentId] = useState<any>();
+
+  const [open] = useDebounce(focus, 100);
 
   const handleChange = (id: any) => {
     setCurrentId(id);
@@ -28,7 +31,7 @@ export function Select({
       <button
         className="px-4 py-0.5 w-full flex items-center justify-between text-slate-600"
         onClick={() => setFocus((current) => !current)}
-        onBlur={() => setFocus(false)}
+        onBlurCapture={() => setFocus(false)}
       >
         {values.find(({ id }) => id === currentId)?.value ??
           values.find(({ id }) => id === defaultId)?.value ??
@@ -42,10 +45,11 @@ export function Select({
       </button>
       <div
         className={classNames(
-          "flex flex-col gap-2 opacity-0 absolute right-0 bg-white shadow-md mt-2 rounded-md pointer-events-none",
+          "flex-col flex gap-2 w-full absolute right-0 bg-white shadow-md mt-2 rounded-md ",
           {
-            "opacity-100 pointer-events-auto": focus,
-          }
+            "opacity-100": open,
+          },
+          { "opacity-0 pointer-events-none": !open }
         )}
       >
         {values.map((value) => (
