@@ -27,7 +27,7 @@ export function Select({
     <div className="relative w-full max-w-md  border border-slate-300  rounded-full">
       <button
         className="px-4 py-0.5 w-full flex items-center justify-between text-slate-600"
-        onFocus={() => setFocus(true)}
+        onClick={() => setFocus((current) => !current)}
         onBlur={() => setFocus(false)}
       >
         {values.find(({ id }) => id === currentId)?.value ??
@@ -42,9 +42,9 @@ export function Select({
       </button>
       <div
         className={classNames(
-          "flex flex-col gap-2 opacity-0 absolute right-0 bg-white shadow-md mt-2 rounded-md",
+          "flex flex-col gap-2 opacity-0 absolute right-0 bg-white shadow-md mt-2 rounded-md pointer-events-none",
           {
-            "opacity-100": focus,
+            "opacity-100 pointer-events-auto": focus,
           }
         )}
       >

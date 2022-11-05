@@ -136,7 +136,7 @@ export function ContainerDetail() {
         {/* <input type="text" value={container.location?.name} /> */}
       </div>
 
-      <div className="flex gap-2 md:justify-end justify-center">
+      <div className="flex mt-4 gap-2 md:justify-end justify-center">
         <Button className="bg-red-500 text-white" onClick={handleRemove}>
           Delete
         </Button>
