@@ -57,7 +57,7 @@ export function LocationListItem({ location, onBlur = () => {} }: Props) {
   return (
     <div
       className={classNames(
-        "group w-full border-b last:border-b-0 hover:bg-slate-100 text-left flex-nowrap border-slate-200 rounded-md md:flex flex-row grid grid-cols-2 items-center gap-3 py-4 px-2 transition-colors"
+        "group w-full border-b last:border-b-0 hover:bg-slate-100 text-left flex-nowrap border-slate-200 rounded-md md:flex md:flex-row grid grid-cols-2 items-center gap-3 py-4 px-2 transition-colors"
       )}
     >
       <div className={" text-slate-800  flex items-center"}>
@@ -73,11 +73,27 @@ export function LocationListItem({ location, onBlur = () => {} }: Props) {
           defaultValue={location.name}
         />
       </div>
+      {location.id && (
+        <div className="md:hidden flex row-span-2 group-hover:opacity-100 opacity-0 transition-opacity ml-auto gap-2">
+          <button
+            onClick={handleClick}
+            className=" bg-slate-700 text-white rounded-full flex items-center justify-center h-8 w-8"
+          >
+            <FontAwesomeIcon icon={faGlasses} className="h-3 w-3" />
+          </button>
+          <button
+            onClick={hanldeRemove}
+            className=" bg-red-500 text-white rounded-full flex items-center justify-center h-8 w-8"
+          >
+            <FontAwesomeIcon icon={faTrash} className="h-3 w-3" />
+          </button>
+        </div>
+      )}
       <div className="flex gap-2 items-center">
-        {location.containerCount} <FontAwesomeIcon icon={faCube} />
+        <FontAwesomeIcon icon={faCube} /> {location.containerCount}
       </div>
       {location.id && (
-        <div className="flex group-hover:opacity-100 opacity-0 transition-opacity ml-auto gap-2">
+        <div className="md:flex hidden group-hover:opacity-100 opacity-0 transition-opacity ml-auto gap-2">
           <button
             onClick={handleClick}
             className=" bg-slate-700 text-white rounded-full flex items-center justify-center h-8 w-8"

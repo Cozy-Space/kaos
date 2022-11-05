@@ -10,7 +10,7 @@ import { Welcome } from "./Welcome";
 
 export function Dashboard() {
   return (
-    <div className=" gap-6 pr-6 pl-24 min-h-screen text-center ">
+    <div className=" gap-6 md:pr-6 md:pl-24 pr-0 pl-16   min-h-screen text-center ">
       <Head />
 
       <div className="p-4">

@@ -9,25 +9,12 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
-import { useContainerApi } from "../hooks/ApiHook";
-import { useContext, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useLogin } from "../hooks/LoginHook";
-import { FontawesomeObject, IconProp } from "@fortawesome/fontawesome-svg-core";
-
-const links = [
-  {
-    name: "Containers",
-    path: "/dashboard/containers",
-  },
-  {
-    name: "Locations",
-    path: "/dashboard/locations",
-  },
-];
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 export function Head() {
-  const { pathname } = useLocation();
-  const { logout, me } = useLogin();
+  const { logout } = useLogin();
   const navigate = useNavigate();
 
   return (
@@ -39,7 +26,7 @@ export function Head() {
       <img
         onClick={() => navigate("/dashboard/containers")}
         src="/kaos_t.svg"
-        className="h-14 rounded-lgq"
+        className="h-12 rounded-lgq"
         alt=""
       />
       <div className="bg-slate-500 h-1 w-8 rounded-full"></div>
@@ -91,12 +78,12 @@ function Item({
     <div
       onClick={handleClick}
       className={classNames(
-        "group h-14 w-14 bg-slate-500 text-white hover:bg-blue-400  relative flex items-center justify-center text-lg shadow-md rounded-[30px] hover:rounded-lg transition-all",
+        "group h-12 w-12   bg-slate-500 text-white hover:bg-blue-400  relative flex items-center justify-center text-lg shadow-md rounded-[30px] hover:rounded-lg transition-all",
         className,
         { "bg-blue-400": active }
       )}
     >
-      <FontAwesomeIcon icon={icon} />
+      <FontAwesomeIcon icon={icon} className=" h-4" />
       <div className="group-hover:opacity-100 pointer-events-none opacity-0 absolute left-20 text-lg bg-slate-700 text-white px-4 py-1 rounded-md transition-all">
         {text}
         <div className="absolute z-50 left-1 h-4 w-4 bg-slate-700 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-sm"></div>

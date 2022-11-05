@@ -10,7 +10,7 @@ export function StickerPage() {
     codesApi.fetchCodes();
     setTimeout(() => {
       window.print();
-    }, 100);
+    }, 1000);
   };
 
   return (
