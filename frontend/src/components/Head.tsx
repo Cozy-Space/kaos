@@ -5,6 +5,7 @@ import {
   faCube,
   faLocationDot,
   faTruck,
+  faList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -33,6 +34,7 @@ export function Head() {
 
       <Item text="Container" icon={faCube} link="/dashboard/containers" />
       <Item text="Locations" icon={faLocationDot} link="/dashboard/locations" />
+      <Item text="Smart Lists" icon={faList} link="/dashboard/smartlists" />
       <Item text="Move" icon={faTruck} link="/dashboard/move" />
       <Item text="Sticker" icon={faStickyNote} link="/dashboard/sticker" />
       <Item text="Settings" icon={faGear} link="/dashboard/settings" />

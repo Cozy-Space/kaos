@@ -5,6 +5,8 @@ import { Containers } from "./dasboard/Containers";
 import { Locations } from "./dasboard/Locations";
 import { Move } from "./dasboard/Move";
 import { Settings } from "./dasboard/Settings";
+import { SmartListDetail } from "./dasboard/SmartListDetail";
+import { SmartLists } from "./dasboard/SmartLists";
 import { StickerPage } from "./dasboard/StickerPage";
 import { Welcome } from "./Welcome";
 
@@ -20,6 +22,8 @@ export function Dashboard() {
           <Route path="locations" element={<Locations />} />
           <Route path="settings" element={<Settings />} />
           <Route path="sticker" element={<StickerPage />} />
+          <Route path="smartlists" element={<SmartLists />} />
+          <Route path="smartlists/:id" element={<SmartListDetail />} />
           <Route path="move" element={<Move />} />
           <Route path="" element={<Welcome />} />
         </Routes>
