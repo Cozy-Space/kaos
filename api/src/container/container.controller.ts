@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { ContainerService } from './container.service';
 import { ContainerEntity } from './container.entity';
 import { LoginGuard } from 'src/login.guard';
 import { SkipThrottle } from '@nestjs/throttler';
+import { UpdateResult } from 'typeorm';
 
 @UseGuards(LoginGuard)
 @Controller('container')
@@ -34,6 +36,11 @@ export class ContainerController {
   @Post()
   async save(@Body() container: SaveDto): Promise<ContainerEntity> {
     return this.containerService.save(container as ContainerEntity);
+  }
+
+  @Put()
+  async update(@Body() container: ContainerEntity): Promise<UpdateResult> {
+    return this.containerService.update(container);
   }
 
   @Delete()

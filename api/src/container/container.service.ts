@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { ContainerEntity } from './container.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LocationService } from '../location/location.service';
@@ -33,6 +33,10 @@ export class ContainerService {
       where: { code },
       relations: ['location'],
     });
+  }
+
+  async update(container: Partial<ContainerEntity>): Promise<UpdateResult> {
+    return this.containerRepository.update(container.id, container);
   }
 
   async remove(container: ContainerEntity): Promise<ContainerEntity> {

@@ -9,6 +9,7 @@ export interface Api<T> {
   load: () => void;
   save: (row: Partial<T>) => void;
   remove: (row: Partial<T>) => void;
+  update: (container: Partial<Container>) => void;
   getById: (id: number) => Promise<any>;
 }
 
@@ -41,7 +42,16 @@ export function useApi<T>(endpoint: string): Api<T> {
   const getById = async (id: number): Promise<any> =>
     fetch(`${endpoint}/${id}`).then((data) => data.json());
 
-  return { data, load, save, remove, getById };
+  const update = async (container: Partial<Container>) => {
+    await fetch(endpoint, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(container),
+    });
+    await load();
+  };
+
+  return { data, load, save, remove, getById, update };
 }
 
 export function useLocationApi(): Api<Location> {

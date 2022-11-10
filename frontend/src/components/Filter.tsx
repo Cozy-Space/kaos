@@ -6,7 +6,7 @@ import {
   faSpinner,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import classNames from "classnames";
 import { useLocationApi } from "../hooks/ApiHook";
 import { Search } from "./Search";
@@ -16,6 +16,7 @@ interface FilterProps {
   query: string;
   addText: string;
   onAddClick?: () => void;
+  children?: ReactNode | ReactNode[];
 }
 
 export function Filter({
@@ -23,6 +24,7 @@ export function Filter({
   query,
   addText,
   onAddClick,
+  children,
 }: FilterProps) {
   return (
     <div className={"flex my-4 gap-2 flex-col md:flex-row"}>
@@ -34,6 +36,7 @@ export function Filter({
         <FontAwesomeIcon icon={faPlus} className="pr-2" />
         {addText}
       </button>
+      {children}
     </div>
   );
 }
