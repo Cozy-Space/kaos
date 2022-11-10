@@ -9,8 +9,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { ContainerList } from "../../components/ContainerList";
+import { MultiLocationInput } from "../../components/MultiLocationInput";
 import { Select } from "../../components/Select";
 import { TagInput } from "../../components/TagInput";
+import { useLocationApi } from "../../hooks/ApiHook";
 import { useSmartList } from "../../hooks/SmartListHook";
 import { Container } from "../../types/Container";
 import { SmartList } from "../../types/SmartList";
@@ -19,6 +21,7 @@ export function SmartListDetail() {
   const [list, setList] = useState<SmartList>();
   const [containers, setContainers] = useState<Container[]>();
   const params = useParams();
+  const locationApi = useLocationApi();
   const smartListApi = useSmartList();
   const navigate = useNavigate();
 
@@ -52,6 +55,7 @@ export function SmartListDetail() {
 
   useEffect(() => {
     load();
+    locationApi.load();
   }, []);
 
   if (!params.id) return null;
@@ -77,11 +81,12 @@ export function SmartListDetail() {
           <FontAwesomeIcon icon={faLocationDot} className="pr-2" />
           Location
         </label>
-        <input
-          type="text"
-          defaultValue={list.locations}
-          onChange={(e) => handleUpdate("locations", e.currentTarget.value)}
-          className=" font-mono"
+        <MultiLocationInput
+          onChange={(value) => handleUpdate("locations", value.join(","))}
+          value={
+            list.locations?.split(",").map((l) => parseInt(l.trim())) || []
+          }
+          locations={locationApi.data}
         />
         <div className="md:col-span-2 border-b-2 border-slate-100"></div>
         <label>
