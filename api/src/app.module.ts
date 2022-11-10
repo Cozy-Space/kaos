@@ -17,6 +17,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { CodeModule } from './code/code.module';
 import { CodeEntity } from './code/code.entity';
 import { ConfigModule } from '@nestjs/config';
+import { SmartlistModule } from './smartlist/smartlist.module';
+import { SmartListEntity } from './smartlist/smartlist.entity';
 
 @Module({
   imports: [
@@ -30,7 +32,13 @@ import { ConfigModule } from '@nestjs/config';
       database: join(process.cwd(), 'database', 'database.sqlite'),
       logging: true,
       synchronize: true,
-      entities: [ContainerEntity, LocationEntity, LoginEntity, CodeEntity],
+      entities: [
+        ContainerEntity,
+        LocationEntity,
+        LoginEntity,
+        CodeEntity,
+        SmartListEntity,
+      ],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'static'),
@@ -41,6 +49,7 @@ import { ConfigModule } from '@nestjs/config';
     ImageModule,
     LoginModule,
     CodeModule,
+    SmartlistModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
