@@ -21,7 +21,7 @@ export function Head() {
   return (
     <div
       className={
-        "fixed left-0 top-0 flex flex-col gap-4 bg-slate-700 h-screen p-2 items-center"
+        "fixed left-0 top-0 flex flex-col gap-4 bg-slate-700 h-screen p-2 items-center z-10"
       }
     >
       <img
