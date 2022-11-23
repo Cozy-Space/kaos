@@ -5,9 +5,9 @@ export function useCodes() {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchCodes = () => {
+  const fetchCodes = async () => {
     setLoading(true);
-    fetch("/api/code")
+    await fetch("/api/code")
       .then((data) => data.json())
       .then((data) => {
         setCodes(data);

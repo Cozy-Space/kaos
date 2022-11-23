@@ -1,4 +1,4 @@
-import { faSpinner, faLock, faGears } from "@fortawesome/free-solid-svg-icons";
+import { faGears, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Sticker } from "../../components/Sticker";
 import { useCodes } from "../../hooks/CodesHook";
@@ -6,11 +6,11 @@ import { useCodes } from "../../hooks/CodesHook";
 export function StickerPage() {
   const codesApi = useCodes();
 
-  const handleGenerate = () => {
-    codesApi.fetchCodes();
+  const handleGenerate = async () => {
+    await codesApi.fetchCodes();
     setTimeout(() => {
       window.print();
-    }, 1000);
+    }, 2000);
   };
 
   return (
@@ -31,7 +31,7 @@ export function StickerPage() {
         )}
       </button>
       {codesApi.error && <div className="text-red-400">Generate failed</div>}
-      <div className="w-[210mm] h-[297mm] py-[15.15mm] px-[5mm] border border-gray-300 print:border-none print:left-0 print:top-0 print:fixed print:bg-white hidden print:flex flex-wrap justify-between content-start">
+      <div className="w-[210mm] h-[297mm] py-[15.15mm] px-[5mm] z-50 border border-gray-300 print:border-none print:left-0 print:top-0 print:fixed print:bg-white hidden print:flex flex-wrap justify-between content-start">
         {codesApi.codes.map((code) => (
           <Sticker code={code} />
         ))}
